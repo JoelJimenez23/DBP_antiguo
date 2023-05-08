@@ -64,3 +64,9 @@ def register_user():
         return jsonify({'succes':False, 'message':'Error creating user'}),500
     finally:
         db.session.close()
+
+# Run the app
+if __name__ == '__main__':
+    app.run(debug=True)
+else:
+    print('Importing {}'.format(__name__))
