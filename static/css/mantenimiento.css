@@ -1,0 +1,6 @@
+.register_items{
+    align-items: center;
+    color: black;
+    padding: 20px;
+    justify-content: space-between;
+}

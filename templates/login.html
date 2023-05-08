@@ -5,8 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link 
+        rel="stylesheet"
+        type="text/css"
+        href="/static/css/mantenimiento.css"
+    />
+    <script src="/static/js/mantenimiento.js"></script>
 </head>
 <body>
-    
+    <div class="register">
+        <section class="register__items">
+            <h1>Register new User</h1>
+            <form id="createUserId">
+                <div>
+                    <label for="nickname">Nickname: </label>
+                    <input type="text" name="nickname" id="nickname">
+                </div>
+                <div>
+                    <label for="e_mail">Nickname: </label>
+                    <input type="email" name="e_mail" id="e_mail">
+                </div>
+                <div>
+                    <label for="saldo">Saldo: </label>
+                    <input type="number" name="saldo" id="saldo">
+                </div>
+                <div>
+                    <input type="submit" id="submitFormButton" value="Create"/>
+                </div>
+            </form>
+            <div id="succesUserMessage" style="display:none;color:green;"></div>
+            <div id="errorUserMessage" style="display:none;color:red;"></div>
+        </section>
+    </div>
+
+
+
+
 </body>
 </html>
