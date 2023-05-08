@@ -38,3 +38,30 @@ class User(db.Model):
             'created_at':self.created_at
         }
     
+with app.app_context():
+    db.create_all()
+
+#Routes
+@app.route('/register',methods=["GET"])
+def index():
+    return render_template('login.html')
+
+@app.route('/register-user',methods=["POST"])
+def register_user():
+    try:
+        nickname = request.form.get('nickname')
+        e_mail = request.form.get('e_mail')
+        saldo = request.form.get('saldo')
+
+        user = User(nickname,e_mail,saldo)
+        db.session.add(user)
+        db.session.commit()
+
+        return jsonify({'id':user.id,'success':True,'message':'User created successfully!'}),200
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        db.session.rollback()
+        return jsonify({'succes':False, 'message':'Error creating user'}),500
+    finally:
+        db.session.close()
