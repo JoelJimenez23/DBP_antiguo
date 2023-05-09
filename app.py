@@ -15,6 +15,9 @@ ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
 
 #CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 #\dx to check if uuid-ossp is installed
+
+# begin models:
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
@@ -40,6 +43,8 @@ class User(db.Model):
     
 with app.app_context():
     db.create_all()
+
+# end models.
 
 #Routes
 @app.route('/register',methods=["GET"])
