@@ -1,45 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link 
-        rel="stylesheet"
-        type="text/css"
-        href="/static/css/mantenimiento.css"
-    />
-    <script src="/static/js/mantenimiento.js"></script>
+	<title>Login SkinLoot</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="register">
-        <section class="register__items">
-            <h1>Register</h1>
-            <form id="createUserId">
-                <div class="form-group">
-                    <label for="nickname">NICKNAME: </label>
-                    <input type="text" name="nickname" id="nickname">
-                </div>
-                <div class="form-group">
-                    <label for="e_mail">EMAIL: </label>
-                    <input type="email" name="e_mail" id="e_mail">
-                </div>
-                <div class="form-group">
-                    <label for="saldo">SALDO: </label>
-                    <input type="number" name="saldo" id="saldo">
-                </div>
-                <div class="form-group">
-                    <input type="submit" id="submitFormButton" value="Create"/>
-                </div>
-            </form>
-            <div id="succesUserMessage" style="display:none;color:green;"></div>
-            <div id="errorUserMessage" style="display:none;color:red;"></div>
-        </section>
-    </div>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
 
+			<div class="signup">
+				<form action=“/register-user” method=“POST”>
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text" name="nickname" placeholder="User name" required="" id ="nickname">
+					<input type="email" name="e_mail" placeholder="Email" required="" id = "e_email">
+					<input type="number" name="saldo" placeholder="Saldo" required="" id = "saldo">
+					<button>Sign up</button>
+				</form>
+			</div>
 
-
-
+			<div class="login">
+				<form>
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
 </body>
 </html>

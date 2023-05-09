@@ -5,7 +5,7 @@ from datetime import  datetime
 import sys
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/dpb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:josue2003@localhost:5432/skinloot'
 app.config['UPLOAD_FOLDER'] = 'static/usuarios'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
@@ -14,6 +14,7 @@ ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
 # codigo correo nickname saldo
 
 #CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+#\dx to check if uuid-ossp is installed
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
