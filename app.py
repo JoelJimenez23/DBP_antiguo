@@ -40,11 +40,17 @@ class User(db.Model):
             'saldo' : self.saldo,
             'created_at':self.created_at
         }
-    
+
+#class Skin(db.Model):
+    #lo necesario para las skinks
+
+
+
+# end models.   
 with app.app_context():
     db.create_all()
 
-# end models.
+
 
 #Routes
 @app.route('/register',methods=["GET"])
