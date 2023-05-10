@@ -14,7 +14,7 @@ ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
 # codigo correo nickname saldo
 
 #CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-#\dx to check if uuid-ossp is installed
+#\dx to j if uuid-ossp is installed
 
 # begin models:
 
