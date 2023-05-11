@@ -47,13 +47,13 @@ with app.app_context():
 # end models.
 
 #Routes
+
 @app.route('/')
 def home():
     return render_template('wel3.html')
 
-
 @app.route('/register',methods=["GET"])
-def index():
+def register():
     return render_template('login.html')
 
 @app.route('/register-user',methods=["POST"])
