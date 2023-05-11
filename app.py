@@ -1,11 +1,11 @@
 from flask import Flask,render_template,jsonify,request
 from flask_sqlalchemy import SQLAlchemy
 import uuid
-from datetime import  datetime
+from datetime import datetime
 import sys
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:josue2003@localhost:5432/skinloot'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:230204@localhost:5432/skinloot'
 app.config['UPLOAD_FOLDER'] = 'static/usuarios'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
@@ -26,11 +26,11 @@ class User(db.Model):
     saldo = db.Column(db.Integer,nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.text("now()"))
 
-    def __init__(self,nickname,e_mail,saldo,created_at):
+    def __init__(self,nickname,e_mail,saldo):
         self.nickname = nickname
         self.e_mail = e_mail    
         self.saldo = saldo
-        self.created_at = created_at
+        self.created_at = datetime.utcnow()
     
     def serialize(self):
         return{
