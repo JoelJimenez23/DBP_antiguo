@@ -47,8 +47,13 @@ with app.app_context():
 # end models.
 
 #Routes
-@app.route('/register',methods=["GET"])
+
+@app.route('/',methods=['GET'])
 def index():
+    return render_template('index.html')
+
+@app.route('/register',methods=["GET"])
+def register():
     return render_template('login.html')
 
 @app.route('/register-user',methods=["POST"])
