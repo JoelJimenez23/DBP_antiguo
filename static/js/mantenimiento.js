@@ -1,5 +1,7 @@
 const pendingForms = new WeakMap()
 
+createUser()
+
 function createUser(){
     const formCreateUserId = document.querySelector('#formCreateUserId',)
     formCreateUserId.addEventListener('submit', handlingSubmitUser)
@@ -39,7 +41,7 @@ function handlingSubmitUser(event){
             else{
                 const errorUserMessage = document.getElementById('errorUserMessage',)
                 errorUserMessage.style.display = 'block';
-                succesUserMessage.innerHTML = responseJson.message;
+                errorUserMessage.innerHTML = responseJson.message;
 
                 setTimeout(() => {
                     formCreateUser.reset()
