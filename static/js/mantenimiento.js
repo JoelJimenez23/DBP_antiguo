@@ -17,7 +17,7 @@ function handlingSubmitUser(event){
 
     const controller = new AbortController()
     pendingForms.set(formCreateUser,controller)
-    // console.log('formCreateEmployee: ', formCreateEmployee)
+    console.log('formCreateEmployee: ', formCreateEmployee)
 
 
     const formData = new FormData(formCreateUser)
@@ -35,13 +35,11 @@ function handlingSubmitUser(event){
                 setTimeout(()=>{
                     formCreateUser.reset()
                     succesUserMessage.style.display = 'none';
-                    window.location.href = '/';
                 },3000)
             }
             else{
                 const errorUserMessage = document.getElementById('errorUserMessage',)
                 errorUserMessage.style.display = 'block';
-                errorUserMessage.innerHTML = responseJson.message;
 
                 setTimeout(() => {
                     formCreateUser.reset()
