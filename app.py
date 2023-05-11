@@ -5,7 +5,7 @@ from datetime import datetime
 import sys
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:230204@localhost:5432/skinloot'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:josue2003@localhost:5432/skinloot'
 app.config['UPLOAD_FOLDER'] = 'static/usuarios'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
@@ -47,6 +47,11 @@ with app.app_context():
 # end models.
 
 #Routes
+@app.route('/')
+def home():
+    return render_template('wel3.html')
+
+
 @app.route('/register',methods=["GET"])
 def index():
     return render_template('login.html')
