@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login SkinLoot</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/mantenimiento.css">
+	<script src="/static/js/mantenimiento.js"></script>
+</head>
+<body>
+	<header>
+		<div class="header_item">Home</div>
+		<div class="header_item">Market</div>
+		<div class="header_item">Log In</div>
+	</header>
+	<section>  	
+			<div class="signup">
+				<form id="formCreateUserId">
+					<!-- <label for="chk" aria-hidden="true">Sign up</label> -->
+					<h1>Sign Up</h1>
+					<input type="text" name="nickname" placeholder="User name" required="" id ="nickname">
+					<input type="email" name="e_mail" placeholder="Email" required="" id = "e_mail">
+					<input type="number" name="saldo" placeholder="Saldo" required="" id = "saldo">
+					<button class="registerbtn">Sign up</button>
+				</form>
+				<div id="successUserMessage" style="display: block; color: green;"></div>
+				<div id="errorUserMessage" style="display: block; color: red;"></div>
+			</div>
+			<!-- <div class="login">
+				<form>
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Login</button>
+				</form>
+			</div> -->
+	</section>
+</body>
+</html>

@@ -1,64 +1,66 @@
-* {
-	box-sizing: border-box;
-}
 
-body {
-	margin: 0;
-	padding: 0;
-	font-family: Arial, sans-serif;
-	background-color: #f2f2f2;
-}
-
-.register_items {
-	width: 40px;
-	margin: 0 auto;
-	padding: 20px;
-	background-color: #fff;
-	border-radius: 5px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-h1 {
-	margin-top: 0;
-	text-align: center;
-}
-
-form {
-	display: flex;
-	flex-direction: column;
-}
-
-label {
-	margin-top: 30px;
-	font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-	margin-bottom: 10px;
-	padding: 10px 100px;
-	border-radius: 5px;
+/* Full-width input fields */
+input[type=text], input[type=email] ,input[type=number]{
+	width: 50%;
+	padding: 10px;
+	margin: 5px 0 10px 0;
+	display: inline-block;
 	border: none;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+	background: #f1f1f1;
+}
+  
+/* input[type=text]:focus, input[type=password]:focus {
+background-color: #ddd;
+outline: none;
+} */
+
+/* Overwrite default styles of hr */
+hr {
+border: 1px solid #f1f1f1;
+margin-bottom: 25px;
 }
 
-input[type="submit"] {
-	background-color: #4CAF50;
-	color: #fff;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 5px;
-	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-	cursor: pointer;
+/* Set a style for the submit/register button */
+.registerbtn {
+background-color: #d73041;
+color: rgb(0, 0, 0);
+padding: 16px 20px;
+margin: 10px 0;
+border: none;
+cursor: pointer;
+width: 53.5%;
+opacity: 0.9;
 }
 
-input[type="submit"]:hover {
-	background-color: #3e8e41;
+.registerbtn:hover {
+opacity:1;
 }
 
-.form-group {
-	display: flex;
-	flex-direction: column;
+/* Add a blue text color to links */
+a {
+color: dodgerblue;
+}
+
+
+
+h1{
 	align-items: center;
+	margin-left: 110px;
 }
+
+.signup{
+	display: flex;
+	justify-content: center;
+	margin-top: 200px;
+	margin-left: 200px;
+}
+
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #d73041;
+	color: black;
+	padding: 10px;
+  }
