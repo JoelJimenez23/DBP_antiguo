@@ -5,7 +5,7 @@ from datetime import datetime
 import sys
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:230204@localhost:5432/skinloot'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/prueba'
 app.config['UPLOAD_FOLDER'] = 'static/usuarios'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
@@ -31,7 +31,6 @@ class User(db.Model):
         self.e_mail = e_mail    
         self.saldo = saldo
         self.created_at = datetime.utcnow()
-    
     def serialize(self):
         return{
             'id': self.id,
@@ -53,8 +52,8 @@ def home():
     return render_template('wel3.html')
 
 @app.route('/register',methods=["GET"])
-def register():
-    return render_template('register.html')
+def register(): 
+    return render_template('login.html')
 
 @app.route('/register-user',methods=["POST"])
 def register_user():
@@ -75,10 +74,6 @@ def register_user():
         return jsonify({'succes':False, 'message':'Error creating user'}),500
     finally:
         db.session.close()
-
-@app.route("/login",methods=["GET"])
-def login():
-    return render_template('login.html')
 
 # Run the app
 if __name__ == '__main__':
