@@ -5,7 +5,7 @@ from datetime import datetime
 import sys
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/prueba'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/skinloot'
 app.config['UPLOAD_FOLDER'] = 'static/usuarios'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
@@ -40,38 +40,53 @@ class User(db.Model):
             'created_at':self.created_at
         }
     
-with app.app_context():
-    db.create_all()
+with app.app_context():db.create_all()
 
-# end models.
+@app.route('/',methods=['GET'])
+def index():
+    return render_template('index.html')
 
-#Routes
-
-@app.route('/')
+@app.route('/home')
 def home():
     return render_template('wel3.html')
 
 @app.route('/register',methods=["GET"])
-def register(): 
+def register():
     return render_template('login.html')
-
+"""
 @app.route('/register-user',methods=["POST"])
 def register_user():
     try:
         nickname = request.form.get('nickname')
         e_mail = request.form.get('e_mail')
         saldo = request.form.get('saldo')
-
         user = User(nickname,e_mail,saldo)
         db.session.add(user)
         db.session.commit()
-
         return jsonify({'id':user.id,'success':True,'message':'User created successfully!'}),200
     except Exception as e:
         print(e)
         print(sys.exc_info())
         db.session.rollback()
         return jsonify({'succes':False, 'message':'Error creating user'}),500
+    finally:
+        db.session.close()
+"""
+@app.route('/register-user', methods=["POST"])
+def register_user():
+    try:
+        nickname = request.form.get('nickname')
+        e_mail = request.form.get('e_mail')
+        saldo = request.form.get('saldo')
+        user = User(nickname, e_mail, saldo)
+        db.session.add(user)
+        db.session.commit()
+        return jsonify({'id': user.id, 'success': True, 'message': 'User created successfully!'}), 200
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        db.session.rollback()
+        return jsonify({'success': False, 'message': 'Error creating user'}), 500
     finally:
         db.session.close()
 
