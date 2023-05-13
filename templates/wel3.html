@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skinloot - Marketplace for Video Games Skins</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
     <style>
       .jumbotron {
         background: url("https://media.giphy.com/media/UtEQ8viTEfCdiAOW4Q/giphy.gif") no-repeat center center fixed;
@@ -22,6 +27,23 @@
         font-size: 3rem;
         font-weight: bold;
       }
+      
+      .card {
+ font-family: 'Roboto', sans-serif;
+}
+
+.card-header {
+ font-family: 'Roboto', sans-serif;
+}
+
+.card-text {
+ font-family: 'Roboto', sans-serif;
+}
+.card {
+ border-radius: 10%;
+}
+
+
     </style>
   </head>
   <body>
@@ -35,27 +57,55 @@
 
     <div id="how-it-works">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <h2 class="text-center mb-5">How it works</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <h3 class="text-center">Step 1</h3>
-            <p class="text-center">Browse our selection of skins and find the one you like.</p>
-          </div>
-          <div class="col-md-4">
-            <h3 class="text-center">Step 2</h3>
-            <p class="text-center">Add the skin to your cart and proceed to checkout.</p>
-          </div>
-          <div class="col-md-4">
-            <h3 class="text-center">Step 3</h3>
-            <p class="text-center">Receive the skin in your game account and enjoy your new look!</p>
-          </div>
-        </div>
+      <div class="row">
+      <div class="col-md-12">
+      <h2 class="text-center mb-5">How it works</h2>
       </div>
-    </div>
+      </div>
+      <div class="row">
+      <div class="col-md-4">
+      <!-- Card for step 1 -->
+      <div class="card bg-dark text-red border-danger mb-3">
+      <div class="card-header">Step 1</div>
+      <div class="card-body">
+      <p class="card-text">Browse our selection of skins and find the one you like.</p>
+      </div>
+      </div>
+      </div>
+      <div class="col-md-4">
+      <!-- Card for step 2 -->
+      <div class="card bg-dark text-red border-danger mb-3">
+      <div class="card-header">Step 2</div>
+      <div class="card-body">
+      <p class="card-text">Add the skin to your cart and proceed to checkout.</p>
+      </div>
+      </div>
+      </div>
+      <div class="col-md-4">
+      <!-- Card for step 3 -->
+      <div class="card bg-dark text-red border-danger mb-3">
+      <div class="card-header">Step 3</div>
+      <div class="card-body">
+      <p class="card-text">Receive the skin in your game account and enjoy your new look!</p>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+     </div>
+     
+    
+<footer class="footer bg-dark text-white text-center py-3">
+  <div class="container">
+    <p> <span style="color: rgb(209, 38, 38)">Copyright &copy; 2023 Skinloot </span></p>
+    <ul class="list-unstyled mt-2">
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+    </ul>
+  </div>
+</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
