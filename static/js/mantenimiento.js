@@ -1,5 +1,4 @@
 const pendingForms = new WeakMap()
-createUser()
 
 function createUser(){
     const formCreateUserId = document.querySelector('#formCreateUserId',)
@@ -16,6 +15,8 @@ function handlingSubmitUser(event){
 
     const controller = new AbortController()
     pendingForms.set(formCreateUser,controller)
+    // console.log('formCreateEmployee: ', formCreateEmployee)
+
 
     const formData = new FormData(formCreateUser)
 
@@ -26,20 +27,23 @@ function handlingSubmitUser(event){
         .then((responseJson)=>{
             if(responseJson.succes){
                 const succesUserMessage = document.getElementById('successUserMessage',)
-                succesUserMessage.style.display = 'block'
-                succesUserMessage.innerHTML = responseJson.message
+                succesUserMessage.style.display = 'block';
+                succesUserMessage.innerHTML = responseJson.message;
 
                 setTimeout(()=>{
                     formCreateUser.reset()
-                    succesUserMessage.style.display = 'none'
+                    succesUserMessage.style.display = 'none';
+                    window.location.href = '/';
                 },3000)
             }
             else{
-                const errorCursoMessage = document.getElementById('errorCursoMesage',)
-                errorCursoMessage.style.display = 'block'
+                const errorUserMessage = document.getElementById('errorUserMessage',)
+                errorUserMessage.style.display = 'block';
+                succesUserMessage.innerHTML = responseJson.message;
+
                 setTimeout(() => {
                     formCreateUser.reset()
-                    errorCursoMessage.style.display = 'none'
+                    errorUserMessage.style.display = 'none';
                 },3000)
             }
     })
