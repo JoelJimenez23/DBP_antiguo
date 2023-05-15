@@ -3,9 +3,25 @@ from flask_sqlalchemy import SQLAlchemy
 import uuid
 from datetime import datetime
 import sys
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/skinloot'
+
+
+# ... Para que cada uno trabaje en su maquina: 
+
+# Obtiene el usuario y la contraseña de las variables de entorno
+db_user = os.environ.get('DB_USER')
+db_password = os.environ.get('DB_PASSWORD')
+
+# Construye la URI de la base de datos
+db_uri = f"postgresql://{db_user}:{db_password}@localhost:5432/skinloot"
+
+# Configura la URI en la aplicación Flask
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/skinloot' esto ya no.
+
 app.config['UPLOAD_FOLDER'] = 'static/usuarios'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png','jpeg','jpg','gif'}
