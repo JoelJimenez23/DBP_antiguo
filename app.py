@@ -6,6 +6,23 @@ import sys
 import os
 
 app = Flask(__name__)
+
+# ... Para que cada uno trabaje en su maquina: 
+
+# Obtiene el usuario y la contraseña de las variables de entorno
+db_user = os.environ.get('DB_USER')
+db_password = os.environ.get('DB_PASSWORD')
+
+# Construye la URI de la base de datos
+db_uri = f"postgresql://{db_user}:{db_password}@localhost:5432/skinloot"
+
+# Configura la URI en la aplicación Flask
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/skinloot' esto ya no.
+
+app.config['UPLOAD_FOLDER'] = 'static/usuarios'
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:230204@localhost:5432/skinloot'
 app.config['UPLOAD_FOLDER'] = 'static/skins'
 db = SQLAlchemy(app)
@@ -24,7 +41,8 @@ class User(db.Model):
     id = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
     nickname = db.Column(db.String(100),unique=False,nullable=False)
     e_mail = db.Column(db.String(100),primary_key=True,nullable=False,unique=True)
-    saldo = db.Column(db.Integer,nullable=False)
+    password = db.Column(db.String(100),unique=False,nullable=False)
+    #saldo = db.Column(db.Integer,nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.text("now()"))
 
     def __init__(self,nickname,e_mail,saldo):
@@ -37,7 +55,8 @@ class User(db.Model):
             'id': self.id,
             'nickname' : self.nickname,
             'e_mail' : self.e_mail,
-            'saldo' : self.saldo,
+            'password' : self.password,
+            #'saldo' : self.saldo,
             'created_at':self.created_at
         }
 class Skin(db.Model):
@@ -71,14 +90,17 @@ with app.app_context():db.create_all()
 def index():
     return render_template('index.html')
 
-@app.route('/home')
+"""
+@app.route('/home', methods=['GET'])
 def home():
     return render_template('wel3.html')
+"""
 
 @app.route('/register',methods=["GET"])
 def register():
     return render_template('login.html')
 
+@app.route('/register-user',methods=["POST"])
 @app.route('/register-user', methods=["POST"])
 def register_user():
     try:
@@ -100,6 +122,12 @@ def register_user():
 @app.route('/skins',methods=['GET'])
 def skins():
     try:
+        nickname = request.form.get('nickname')
+        e_mail = request.form.get('e_mail')
+        password = request.form.get('password')
+        user = User(nickname, e_mail, password)
+        db.session.add(user)
+
         skins = Skin.query.all()
         skins_serialized = [skin.serialize() for skin in skins]
         return jsonify({'success':True,'skins':skins_serialized}),200
