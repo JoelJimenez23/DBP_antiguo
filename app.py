@@ -40,6 +40,15 @@ class User(db.Model):
             'created_at':self.created_at
         }
     
+class Skin(db.Model):
+    __tablename__='skins'
+    hash = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
+    name = db.Column(db.String(100),unique=False,nullable=False)
+    category = db.Column(db.String(100),unique=False,nullable=False)
+    game_name = db.Column(db.String(100),unique=False,nullable=False)
+    company_name = db.Column(db.String(100),unique=False,nullable=False)
+    image = db.Column(db.String(500),unique=False,nullable=False)
+
 with app.app_context():db.create_all()
 
 @app.route('/',methods=['GET'])
