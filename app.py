@@ -39,7 +39,8 @@ class User(db.Model):
     id = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
     nickname = db.Column(db.String(100),unique=False,nullable=False)
     e_mail = db.Column(db.String(100),primary_key=True,nullable=False,unique=True)
-    saldo = db.Column(db.Integer,nullable=False)
+    password = db.Column(db.String(100),unique=False,nullable=False)
+    #saldo = db.Column(db.Integer,nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.text("now()"))
 
     def __init__(self,nickname,e_mail,saldo):
@@ -52,7 +53,8 @@ class User(db.Model):
             'id': self.id,
             'nickname' : self.nickname,
             'e_mail' : self.e_mail,
-            'saldo' : self.saldo,
+            'password' : self.password,
+            #'saldo' : self.saldo,
             'created_at':self.created_at
         }
     
@@ -105,8 +107,8 @@ def register_user():
     try:
         nickname = request.form.get('nickname')
         e_mail = request.form.get('e_mail')
-        saldo = request.form.get('saldo')
-        user = User(nickname, e_mail, saldo)
+        password = request.form.get('password')
+        user = User(nickname, e_mail, password)
         db.session.add(user)
         db.session.commit()
         return jsonify({'id': user.id, 'success': True, 'message': 'User created successfully!'}), 200
