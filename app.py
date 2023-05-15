@@ -22,8 +22,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:546362@localhost:5432/skinloot' esto ya no.
 
 app.config['UPLOAD_FOLDER'] = 'static/usuarios'
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:230204@localhost:5432/skinloot'
 app.config['UPLOAD_FOLDER'] = 'static/skins'
 db = SQLAlchemy(app)
 ALLOWED_EXTENSIONS = {'png','jpeg','jpg'}
@@ -42,7 +40,6 @@ class User(db.Model):
     nickname = db.Column(db.String(100),unique=False,nullable=False)
     e_mail = db.Column(db.String(100),primary_key=True,nullable=False,unique=True)
     password = db.Column(db.String(100),unique=False,nullable=False)
-    #saldo = db.Column(db.Integer,nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.text("now()"))
 
     def __init__(self,nickname,e_mail,saldo):
@@ -59,6 +56,7 @@ class User(db.Model):
             #'saldo' : self.saldo,
             'created_at':self.created_at
         }
+    
 class Skin(db.Model):
     __tablename__='skins'
     hash = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
@@ -68,7 +66,7 @@ class Skin(db.Model):
     company_name = db.Column(db.String(100),unique=False,nullable=False)
     image = db.Column(db.String(500),nullable=True)
 
-    def __init__(self, name,category,game_name,company_name,image):
+    def __init__(self, name,category,game_name,company_name):
         self.name = name
         self.category = category
         self.game_name = game_name
@@ -83,6 +81,78 @@ class Skin(db.Model):
             'company_name':self.company_name,
             'image':self.image
         }
+    
+class Postventa(db.Model):
+    __tablename__='postsventa'
+    id = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
+    pv_name = db.Column(db.String(300),unique=False,nullable=False)
+    status = db.Column(db.String(100),unique=False,nullable=False)
+    user_id = db.Column(db.String(36),db.ForeignKey('users.id'),nullable=False)
+    skin_hash = db.Column(db.String(36),db.ForeignKey('skins.hash'),nullable=False)
+    skin_name = db.Column(db.String(100),db.ForeignKey('skins.name'),nullable=False)
+    skin_image = db.Column(db.String(500),db.ForeignKey('skins.image'),nullable=False)
+    price = db.Column(db.Integer,nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.text("now()"))
+
+    def __init__(self,pv_name,status,user_id,skin_hash,skin_name,price):
+        self.pv_name = pv_name
+        self.status = status
+        self.user_id = user_id
+        self.skin_hash = skin_hash
+        self.skin_name = skin_name
+        self.price = price
+        self.created_at = datetime.utcnow()
+        
+    def serialize(self):
+        return{
+            'id':self.id,
+            'pv_name':self.pv_name,
+            'status':self.status,
+            'user_id':self.user_id,
+            'skin_hash':self.skin_hash,
+            'skin_image':self.skin_image,
+            'skin_name':self.skin_name,
+            'price':self.price,
+            'created_at':self.created_at
+        }    
+
+class Posttrade(db.Model):
+    __tablename__='poststrade'
+    id = db.Column(db.String(36),primary_key=True, default=lambda: str(uuid.uuid4()), server_default=db.text("uuid_generate_v4()"))
+    pt_name = db.Column(db.String(300),unique=False,nullable=False)
+    status = db.Column(db.String(100),unique=False,nullable=False)
+    user_id = db.Column(db.String(36),db.ForeignKey('users.id'),nullable=False)
+    skin_hash = db.Column(db.String(36),db.ForeignKey('skins.hash'),nullable=False)
+    skin_name = db.Column(db.String(100),db.ForeignKey('skins.name'),nullable=False)
+    skin_image = db.Column(db.String(500),db.ForeignKey('skins.image'),nullable=False)
+    skin_traded_image = db.Column(db.String(500),db.ForeignKey('skins.image'),nullable=False)
+    skin_traded_hash = db.Column(db.String(36),db.ForeignKey('skins.hash'),nullable=False)
+    skin_traded_name = db.Column(db.String(100),db.ForeignKey('skins.name'),nullable=False)
+    trader_id = db.Column(db.String(36),db.ForeignKey('users.id'),nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True), nullable=False, server_default=db.text("now()"))
+
+    def __init__(self,pt_name,status,user_id,skin_hash,skin_name,skin_traded_hash,skin_traded_name,trader_id):
+        self.pt_name = pt_name
+        self.status = status
+        self.user_id = user_id
+        self.skin_hash = skin_hash
+        self.skin_name = skin_name
+        self.skin_traded_hash = skin_traded_hash
+        self.skin_traded_name = skin_traded_name
+        self.trader_id = trader_id
+        self.created_at = datetime.utcnow()
+        
+    def serialize(self):
+        return{
+            'id':self.id,
+            'status':self.status,
+            'user_id':self.user_id,
+            'skin_hash':self.skin_hash,
+            'skin_image':self.skin_image,
+            'skin_name':self.skin_name,
+            'price':self.price,
+            'created_at':self.created_at
+        }    
 
 with app.app_context():db.create_all()
 
