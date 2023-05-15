@@ -71,13 +71,16 @@ with app.app_context():db.create_all()
 def index():
     return render_template('index.html')
 
-@app.route('/home')
+"""
+@app.route('/home', methods=['GET'])
 def home():
     return render_template('wel3.html')
+"""
 
 @app.route('/register',methods=["GET"])
 def register():
     return render_template('login.html')
+
 """
 @app.route('/register-user',methods=["POST"])
 def register_user():
