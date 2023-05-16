@@ -47,7 +47,7 @@ class Skin(db.Model):
     category = db.Column(db.String(100),unique=False,nullable=False)
     game_name = db.Column(db.String(100),unique=False,nullable=False)
     company_name = db.Column(db.String(100),unique=False,nullable=False)
-    image = db.Column(db.String(500),unique=False,nullable=False)
+    image = db.Column(db.String(500),nullable=True)
 
     def __init__(self, name,category,game_name,company_name,image):
         self.name = name
@@ -108,7 +108,7 @@ def skins():
     
 @app.route('/new-skin', methods = ['GET'])
 def new_skin():
-    return render_template()
+    return render_template('new_skin.html')
 
 @app.route('/register-skin',methods=['POST'])
 def register_skin():
@@ -133,12 +133,24 @@ def register_skin():
         db.session.commit()
 
         cwd = os.getcwd()
+        skin_dir = os.path.join(app.config['UPLOAD_FOLDER'], skin.hash)
+        os.makedirs(skin_dir, exist_ok=True)
 
-        
-    
-    except:
+        upload_folder = os.path.join(cwd, skin_dir)
 
+        file.save(os.path.join(upload_folder, file.filename))
+
+        skin.image = file.filename
+        db.session.commit()
+
+        return jsonify({'id':skin.hash,'success':True,'message':'Skin Created succesfully!'}),200
+    except Exception as e:
+        print(e)
+        print(sys.exc_info())
+        db.session.rollback()
+        return jsonify({'success':False,'message':'Error creating skin'})
     finally:
+        db.session.close()
 
 
 
