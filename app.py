@@ -138,7 +138,7 @@ def skins():
 def new_skin():
     return render_template('new_skin.html')
 
-@app.route('/register-skin',methods=['POST'])
+@app.route('/register-skin',methods=["POST"])
 def register_skin():
     try:
         name = request.form.get('name')
